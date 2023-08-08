@@ -5,3 +5,5 @@ This is a text editor desktop application with features like open, save, and edi
 ![Alt text](image-2.png)
 ![Alt text](image-3.png)
 ![Alt text](image-4.png)
+New operations were added.
+![Alt text](image-5.png)
