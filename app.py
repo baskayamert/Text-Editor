@@ -1,6 +1,6 @@
 import sys
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTextEdit, QFileDialog, QVBoxLayout, QPushButton, QWidget, QStatusBar
+from PyQt6.QtWidgets import QApplication, QMainWindow, QTextEdit, QFileDialog, QVBoxLayout, QPushButton, QWidget, QStatusBar, QLabel
 from PyQt6.QtGui import QAction, QKeySequence
 from PyQt6.QtCore import Qt
 
@@ -15,6 +15,7 @@ class TextEditor(QMainWindow):
         self.setGeometry(100, 100, 800, 600)
 
         self.text_edit = QTextEdit(self)
+        self.text_edit.textChanged.connect(self.update_word_count)
         self.setCentralWidget(self.text_edit)
 
         self.create_actions()
@@ -81,6 +82,20 @@ class TextEditor(QMainWindow):
     def create_status_bar(self):
         self.status_bar = QStatusBar()
         self.setStatusBar(self.status_bar)
+        # word count and character count
+        self.word_count_label = QLabel("Word Count: 0")
+        self.character_count_label = QLabel("Character Count: 0")
+        self.status_bar.addWidget(self.word_count_label)
+        self.status_bar.addWidget(self.character_count_label)
+
+    def update_word_count(self):
+        text = self.text_edit.toPlainText()
+        words = text.split()
+        characters = len(text)
+        word_count = len(words)
+
+        self.word_count_label.setText(f"Word Count: {word_count}")
+        self.character_count_label.setText(f"Character Count: {characters}")
 
     def open_file(self):
         file_dialog = QFileDialog(self)
